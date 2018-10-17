@@ -133,8 +133,8 @@ export class EosService {
   getProducers() {
     return from(this.eos.getTableRows({
       json: true,
-      code: "eosio",
-      scope: "eosio",
+      code: "gocio",
+      scope: "gocio",
       table: "producers",
       limit: 700,
       table_key: ""
@@ -150,8 +150,8 @@ export class EosService {
   getChainStatus() {
     return from(this.eos.getTableRows({
       json: true,
-      code: "eosio",
-      scope: "eosio",
+      code: "gocio",
+      scope: "gocio",
       table: "global",
       limit: 1
     })).pipe(
