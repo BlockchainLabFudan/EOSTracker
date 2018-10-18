@@ -13,9 +13,11 @@ export class SettingsComponent implements OnInit {
 
   @LocalStorage() language: string;
   languages = LANGUAGES;
-  apis = APIS;
+  //apis = APIS;
   languageControl: FormControl;
   apiControl: FormControl;
+
+  apis : API_ele[] = [];
 
   constructor(
     private translate: TranslateService,
@@ -43,8 +45,26 @@ export class SettingsComponent implements OnInit {
     this.apiControl.valueChanges.subscribe(apiEndpoint => {
       this.eosService.setApiEndpoint(apiEndpoint);
     });
+
+    //set default API
+    APIS.forEach(api => {
+      this.apis.push({name: api.name, endpoint: api.endpoint});
+      console.log(api.name);
+    }
+    );
   }
 
+  add(api: string): void {
+    api = api.trim();
+    if (!api) { return; }
+    this.apis.push({name: api, endpoint: api});
+  }
+
+}
+
+class API_ele {
+  name: string;
+  endpoint: string;
 }
 
 export const LANGUAGES = [
@@ -62,8 +82,7 @@ export const LANGUAGES = [
 ];
 
 export const APIS = [
-  { name: 'EOS Dublin', endpoint: 'https://api1.eosdublin.io' },
-  { name: 'EOS New York', endpoint: 'http://api.eosnewyork.io' },
-  { name: 'Greymass', endpoint: 'https://eos.greymass.com' },
-  { name: 'Cypherglass', endpoint: 'http://api.cypherglass.com' }
+  { name: 'GOC testnet',               endpoint: 'http://118.190.154.168:8000' },
+  { name: 'http://127.0.0.1:8000',     endpoint: 'http://127.0.0.1:8000'       },
+  { name: 'http://192.168.1.102:8000', endpoint: 'http://192.168.1.102:8000'       }
 ]

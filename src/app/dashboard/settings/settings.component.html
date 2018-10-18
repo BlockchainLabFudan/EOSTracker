@@ -21,3 +21,12 @@
     </mat-select>
   </mat-form-field>
 </div>
+<div>
+  <label>Add temporary API:
+    <input #newAPI />
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(newAPI.value); newAPI.value=''">
+    add
+  </button>
+</div>
