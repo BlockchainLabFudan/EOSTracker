@@ -12,7 +12,7 @@ declare let ga: Function;
 })
 
 export class AppComponent {
-  title = 'EOS Tracker | EosTracker.io';
+  title = 'GOC Tracker | GocTracker.io';
   @LocalStorage()
   language: any;
 

@@ -7,8 +7,8 @@ export const environment = {
   production: false,
   walletUrl: 'https://walleteos.com',
   votingUrl: 'https://eosportal.io',
-  appName: 'EOS Tracker',
+  appName: 'GOC Tracker',
   logoUrl: '/assets/logo.png',
-  blockchainUrl: 'https://eos.greymass.com',
-  chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906'
+  blockchainUrl: 'http://118.190.154.168:8000',
+  chainId: '1cf6b75731df97242f6a5bc2f2adcefacc279ff72986c3352cb51a2f9e2df3ef'
 };

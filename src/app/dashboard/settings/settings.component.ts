@@ -62,6 +62,7 @@ export const LANGUAGES = [
 ];
 
 export const APIS = [
+  { name: 'GOC testnet', endpoint: 'http://118.190.154.168:8000' },
   { name: 'EOS Dublin', endpoint: 'https://api1.eosdublin.io' },
   { name: 'EOS New York', endpoint: 'http://api.eosnewyork.io' },
   { name: 'Greymass', endpoint: 'https://eos.greymass.com' },
