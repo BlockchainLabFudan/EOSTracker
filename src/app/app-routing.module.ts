@@ -18,6 +18,7 @@ const appRoutes: Routes = [
       { path: 'accounts', loadChildren: './account/account.module#AccountModule' },
       { path: 'blocks', loadChildren: './block/block.module#BlockModule' },
       { path: 'producers', loadChildren: './producer/producer.module#ProducerModule' },
+      { path: 'proposals', loadChildren: './proposal/proposal.module#ProposalModule' },
       { path: 'transactions', loadChildren: './transaction/transaction.module#TransactionModule' },
       { path: 'console', loadChildren: './console/console.module#ConsoleModule' },
       { path: 'support', loadChildren: './support/support.module#SupportModule' }

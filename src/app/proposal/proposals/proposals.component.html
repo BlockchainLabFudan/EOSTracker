@@ -1,0 +1,52 @@
+<mat-toolbar color="primary">
+  <h1 class="mat-headline">
+    {{ 'Proposals' | translate }}
+  </h1>
+</mat-toolbar>
+<div style="margin:10px;">
+  <!--<app-vote-progress-bar [chainStatus]="chainStatus$ | async" style="margin:20px 0;"></app-vote-progress-bar>-->
+  <app-table [dataSource]="proposals$ | async" [enablePager]="false">
+    <table mat-table [dataSource]="proposals$ | async">
+      <ng-container *ngIf="columnHeaders$ | async as columnHeaders">
+        <tr mat-header-row *matHeaderRowDef="columnHeaders"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnHeaders;"></tr>
+      </ng-container>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>{{'ID' | translate}}</th>
+        <td mat-cell *matCellDef="let proposal">
+          {{proposal.id}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="owner">
+        <th mat-header-cell *matHeaderCellDef>{{ 'Name' | translate }}</th>
+        <td mat-cell *matCellDef="let proposal">
+          <a [routerLink]="['/proposals',proposal.owner]">{{proposal.owner}}</a>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="url">
+        <th mat-header-cell *matHeaderCellDef>{{ 'Url' | translate }}</th>
+        <td mat-cell *matCellDef="let proposal">
+          <a href="{{proposal.url}}">{{proposal.url}}</a>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="proposal_name">
+        <th mat-header-cell *matHeaderCellDef>{{ 'Proposal Name' | translate }}</th>
+        <td mat-cell *matCellDef="let proposal">
+          {{proposal.proposal_name}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="proposal_content">
+        <th mat-header-cell *matHeaderCellDef>{{ 'Proposal Content' | translate }}</th>
+        <td mat-cell *matCellDef="let proposal">
+          {{proposal.proposal_content}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="fee">
+        <th mat-header-cell *matHeaderCellDef>{{ 'Fee' | translate }}</th>
+        <td mat-cell *matCellDef="let proposal">
+          {{proposal.fee}}
+        </td>
+      </ng-container>
+    </table>
+  </app-table>
+</div>

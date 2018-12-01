@@ -147,6 +147,23 @@ export class EosService {
     );
   }
 
+  getProposals() {
+    return from(this.eos.getTableRows({
+      json: true,
+      code: "gocio",
+      scope: "gocio",
+      table: "proposals",
+      limit: 700,
+      table_key: ""
+    })).pipe(
+      map((result: any) => {
+        return result.rows
+          .map(row => ({ ...row, id: parseFloat(row.id) }))
+          .sort((a, b) => a.id - b.id);
+      })
+    );
+  }
+
   getChainStatus() {
     return from(this.eos.getTableRows({
       json: true,
