@@ -164,6 +164,23 @@ export class EosService {
     );
   }
 
+  getProposal(id: number) {  //TODO: add api in eosjs
+    return from(this.eos.getTableRows({
+      json: true,
+      code: "gocio",
+      scope: "gocio",
+      table: "proposals",
+      limit: 700,
+      table_key: ""
+    })).pipe(
+      map((result: any) => {
+        return result.rows
+          .map(row => ({ ...row, id: parseFloat(row.id) }))
+          .filter(row => row.id == id);  //TODO ===
+      })
+    );
+  }
+
   getChainStatus() {
     return from(this.eos.getTableRows({
       json: true,

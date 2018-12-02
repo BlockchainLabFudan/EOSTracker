@@ -4,7 +4,7 @@ import { ProposalRoutingModule } from './proposal-routing.module';
 import { AgmCoreModule } from '@agm/core';
 
 import { ProposalsComponent } from './proposals/proposals.component';
-//import { ProposalComponent } from './proposal/proposal.component';
+import { ProposalComponent } from './proposal/proposal.component';
 import { VoteProgressBarComponent } from './vote-progress-bar/vote-progress-bar.component';
 import { InformationComponent } from './proposal/information/information.component';
 import { NodesComponent } from './proposal/nodes/nodes.component';
@@ -19,7 +19,7 @@ import { NodesComponent } from './proposal/nodes/nodes.component';
   ],
   declarations: [
     ProposalsComponent,
-    //ProposalComponent,
+    ProposalComponent,
     VoteProgressBarComponent,
     InformationComponent,
     NodesComponent

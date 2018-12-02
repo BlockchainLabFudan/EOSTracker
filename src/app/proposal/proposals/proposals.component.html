@@ -14,13 +14,13 @@
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>{{'ID' | translate}}</th>
         <td mat-cell *matCellDef="let proposal">
-          {{proposal.id}}
+          <a [routerLink]="['/proposals',proposal.id]">{{proposal.id}}</a>
         </td>
       </ng-container>
       <ng-container matColumnDef="owner">
-        <th mat-header-cell *matHeaderCellDef>{{ 'Name' | translate }}</th>
+        <th mat-header-cell *matHeaderCellDef>{{ 'Owner' | translate }}</th>
         <td mat-cell *matCellDef="let proposal">
-          <a [routerLink]="['/proposals',proposal.owner]">{{proposal.owner}}</a>
+          <a [routerLink]="['/accounts',proposal.owner]">{{proposal.owner}}</a>
         </td>
       </ng-container>
       <ng-container matColumnDef="url">

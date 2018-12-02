@@ -1,16 +1,16 @@
 <mat-toolbar color="primary">
   <h1 class="mat-headline">
-    {{ 'Producer' | translate }}
-    <span *ngIf="producer$ | async as producer">{{producer.account?.account_name}}</span>
+    {{ 'Proposal' | translate }}
+    <span *ngIf="proposal$ | async as proposal">{{proposal.account?.account_name}}</span>
   </h1>
 </mat-toolbar>
-<div *ngIf="producer$ | async as producer; else loading">
-  <app-producer-information [producer]="producer" style="margin:10px;"></app-producer-information>
-  <app-producer-nodes [location]="producer.location" style="margin:10px;"></app-producer-nodes>
+<div *ngIf="proposal$ | async as proposal; else loading">
+  <app-proposal-information [proposal]="proposal" style="margin:10px;"></app-proposal-information>
+  <app-proposal-nodes [location]="proposal.location" style="margin:10px;"></app-proposal-nodes>
   <mat-card style="margin:10px;">
-    <mat-card-title>Account Raw Data</mat-card-title>
+    <mat-card-title>Proposal Raw Data</mat-card-title>
     <mat-card-content>
-      <prettyjson [obj]="producer.account"></prettyjson>
+      <prettyjson [obj]="proposal.account"></prettyjson>
     </mat-card-content>
   </mat-card>
 </div>
