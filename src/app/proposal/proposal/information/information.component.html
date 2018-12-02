@@ -36,19 +36,19 @@
       </tr>
       <tr *ngIf="proposal">
         <td>{{ 'Create Time' | translate }}:</td>
-        <td>{{proposal.create_time | date}}</td>
+        <td>{{proposal.create_time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
       </tr>
       <tr *ngIf="proposal">
         <td>{{ 'Vote Start Time' | translate }}:</td>
-        <td>{{proposal.vote_starttime | date}}</td>
+        <td>{{proposal.vote_starttime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
       </tr>
       <tr *ngIf="proposal">
         <td>{{ 'BP Vote Start Time' | translate }}:</td>
-        <td>{{proposal.bp_vote_starttime | date}}</td>
+        <td>{{proposal.bp_vote_starttime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
       </tr>
       <tr *ngIf="proposal">
         <td>{{ 'BP Vote End Time' | translate }}:</td>
-        <td>{{proposal.bp_vote_endtime | date}}</td>
+        <td>{{proposal.bp_vote_endtime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
       </tr>
       <tr *ngIf="proposal">
         <td>{{ 'Total Voter' | translate }}:</td>
