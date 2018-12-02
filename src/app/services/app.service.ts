@@ -78,8 +78,8 @@ export class AppService {
     this.ramQuote$ = timer(0, RAM_QUOTE).pipe(
       switchMap(() => from(this.eosService.eos.getTableRows({
         json: true,
-        code: "eosio",
-        scope: "eosio",
+        code: "gocio",
+        scope: "gocio",
         table: "rammarket"
       }))),
       filter((data: any) => data.rows && data.rows.length),
