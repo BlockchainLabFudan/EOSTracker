@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
   <h1 class="mat-headline">
     {{ 'Proposal' | translate }}
-    <span *ngIf="proposal$ | async as proposal">{{proposal.account?.account_name}}</span>
+    <span *ngIf="proposal$ | async as proposal">#{{proposal.id}}</span>
   </h1>
 </mat-toolbar>
 <div *ngIf="proposal$ | async as proposal; else loading">

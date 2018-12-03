@@ -14,7 +14,7 @@
       </tr>
       <tr *ngIf="proposal">
         <td>{{ 'Owner' | translate }}:</td>
-        <td>{{proposal.owner}}</td>
+        <td><a [routerLink]="['/accounts',proposal.owner]">{{proposal.owner}}</a></td>
       </tr>
       <tr *ngIf="proposal">
         <td>{{ 'Url' | translate }}:</td>
@@ -28,7 +28,7 @@
       </tr>
       <tr *ngIf="proposal">
         <td>{{ 'Proposal content' | translate }}:</td>
-        <td>{{proposal.proposal_content}}</td>
+        <td style="white-space:pre-wrap;">{{proposal.proposal_content}}</td>
       </tr>
       <tr *ngIf="proposal">
         <td>{{ 'Fee' | translate }}:</td>
