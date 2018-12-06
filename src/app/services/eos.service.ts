@@ -160,24 +160,28 @@ export class EosService {
       map((result: any) => {
         return result.rows
           .map(row => ({ ...row, id: parseFloat(row.id) }))
-          .sort((a, b) => a.id - b.id);
+          .sort((a, b) => b.id - a.id);
       })
     );
   }
 
-  getProposal(id: number) {  //TODO: add api in eosjs
+  getProposal(id: string) {  //TODO: add api in eosjs
+    var lower = parseInt(id);
+    var uppper = lower + 1;
     return from(this.eos.getTableRows({
       json: true,
       code: "gocio",
       scope: "gocio",
       table: "proposals",
+      lower_bound:lower,
+      upper_bound:uppper,
       limit: 700,
       table_key: ""
     })).pipe(
       map((result: any) => {
         return result.rows
           .map(row => ({ ...row, id: parseFloat(row.id) }))
-          .filter(row => row.id == id);  //TODO ===
+          //.filter(row => row.id == id);  //TODO ===
       })
     );
   }

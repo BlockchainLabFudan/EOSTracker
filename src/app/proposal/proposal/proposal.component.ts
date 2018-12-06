@@ -12,7 +12,7 @@ import { EosService } from '../../services/eos.service';
 export class ProposalComponent implements OnInit {
 
   id$: Observable<number>;
-  name$: Observable<number>;
+  name$: Observable<string>;
   proposal$: Observable<any>;
 
   constructor(
