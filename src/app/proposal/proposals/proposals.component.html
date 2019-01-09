@@ -31,7 +31,7 @@
       </ng-container>
       <ng-container matColumnDef="proposal_name">
         <th width="15%" mat-header-cell *matHeaderCellDef>{{ 'Proposal Name' | translate }}</th>
-        <td mat-cell *matCellDef="let proposal">
+        <td mat-cell *matCellDef="let proposal" style="white-space:pre-wrap;">
           {{proposal.proposal_name}}
         </td>
       </ng-container>
