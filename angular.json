@@ -23,6 +23,7 @@
             "styles": [
               "src/styles.scss",
               "src/themes.scss",
+              "src/material-icons.css",
               "src/material.scss"
             ],
             "scripts": [
