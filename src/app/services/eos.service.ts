@@ -165,9 +165,9 @@ export class EosService {
     );
   }
 
-  getProposal(id: string) {  //TODO: add api in eosjs
-    var lower = parseInt(id);
-    var uppper = lower + 1;
+  getProposal(id: string | number) {  //TODO: add api in eosjs
+    var lower = id;
+    var uppper = lower;
     return from(this.eos.getTableRows({
       json: true,
       code: "gocio",
@@ -184,6 +184,11 @@ export class EosService {
           //.filter(row => row.id == id);  //TODO ===
       })
     );
+  }
+
+  getProposalRaw(id: string | number): Observable<Result<any>> {
+    const getProposal$ = defer(() => from(this.getProposal(id)));
+    return this.getResult<any>(getProposal$);
   }
 
   getChainStatus() {

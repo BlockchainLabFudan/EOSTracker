@@ -1,16 +1,15 @@
 <mat-toolbar color="primary">
   <h1 class="mat-headline">
-    {{ 'Proposal' | translate }}
-    <span *ngIf="proposal$ | async as proposal">#{{proposal.id}}</span>
+    {{ 'Proposal' | translate }} #{{id$ | async}}
   </h1>
 </mat-toolbar>
 <div *ngIf="proposal$ | async as proposal; else loading">
-  <app-proposal-information [proposal]="proposal" style="margin:10px;"></app-proposal-information>
+  <app-proposal-information [proposal]="proposal.value[0]" style="margin:10px;"></app-proposal-information>
   <app-proposal-nodes [location]="proposal.location" style="margin:10px;"></app-proposal-nodes>
   <mat-card style="margin:10px;">
     <mat-card-title>Proposal Raw Data</mat-card-title>
     <mat-card-content>
-      <prettyjson [obj]="proposal.account"></prettyjson>
+      <prettyjson [obj]="proposal.value"></prettyjson>
     </mat-card-content>
   </mat-card>
 </div>
