@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { ProposalRoutingModule } from './proposal-routing.module';
 import { AgmCoreModule } from '@agm/core';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { ProposalsComponent } from './proposals/proposals.component';
 import { ProposalComponent } from './proposal/proposal.component';
@@ -13,6 +14,7 @@ import { NodesComponent } from './proposal/nodes/nodes.component';
   imports: [
     SharedModule,
     ProposalRoutingModule,
+    MatPaginatorModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAm8XqMj1dCSiEDlfb4c5KlZ9kbcBmTLS0'
     })

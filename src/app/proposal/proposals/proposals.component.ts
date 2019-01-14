@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { EosService } from '../../services/eos.service';
 import { Observable, of, timer } from 'rxjs';
-import { map, share, switchMap } from 'rxjs/operators';
+import { map, share, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   templateUrl: './proposals.component.html',
@@ -13,6 +13,9 @@ export class ProposalsComponent implements OnInit {
   columnHeaders$: Observable<string[]> = of(PROPOSALS_COLUMNS);
   proposals$: Observable<any[]>;
   chainStatus$: Observable<any>;
+  pageIndex = 0;
+  pageSize = 20;
+  total = 0;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -20,6 +23,22 @@ export class ProposalsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.columnHeaders$ = this.breakpointObserver.observe(Breakpoints.XSmall).pipe(
+      map(result => result.matches ? PROPOSALS_COLUMNS.filter((c: any) => (c !== 'url' && c !== 'numVotes')) : PROPOSALS_COLUMNS)
+    );
+    this.proposals$ = this.eosService.newgetProposals(this.pageIndex, this.pageSize).pipe(
+      tap(proposals => {
+        this.total = proposals[0]['rows'][0].id;
+      })
+    );
+  }
+
+  onPaging(pageEvent) {
+    this.pageIndex = pageEvent.pageIndex;
+    this.proposals$ = this.eosService.newgetProposals(pageEvent.length - pageEvent.pageSize * pageEvent.pageIndex, pageEvent.pageSize);
+  }
+/*
+  ngOnInitbak() {
     this.columnHeaders$ = this.breakpointObserver.observe(Breakpoints.XSmall).pipe(
       map(result => result.matches ? PROPOSALS_COLUMNS.filter((c: any) => (c !== 'url' && c !== 'numVotes')) : PROPOSALS_COLUMNS)
     );
@@ -55,6 +74,7 @@ export class ProposalsComponent implements OnInit {
       share()
     );
   }
+*/
 
 
 }

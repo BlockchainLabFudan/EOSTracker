@@ -2,8 +2,8 @@ import * as Eos from 'eosjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Observable, from, of, defer, combineLatest, BehaviorSubject } from 'rxjs';
-import { map, catchError, switchMap } from 'rxjs/operators';
+import { Observable, from, of, defer, combineLatest, BehaviorSubject, timer, forkJoin } from 'rxjs';
+import { map, catchError, switchMap, share, take, filter } from 'rxjs/operators';
 import { Result } from '../models';
 import { LoggerService } from './logger.service';
 
@@ -15,10 +15,17 @@ export class EosService {
   public apiEndpoint$ = this.apiEndpointSource.asObservable();
   public eos: any;
 
+  info$: Observable<any>;
+
   constructor(
     private http: HttpClient,
     private logger: LoggerService
   ) {
+    this.info$ = timer(0, 5000).pipe(
+      switchMap(() => this.onegetProposals()),
+      share()
+    );
+    const proposalNumber: number = 0
     this.apiEndpoint$.subscribe(apiEndpoint => {
       this.eos = Eos({
         httpEndpoint: apiEndpoint,
@@ -165,7 +172,80 @@ export class EosService {
     );
   }
 
-  getProposal(id: string | number) {  //TODO: add api in eosjs
+  onegetProposals() {
+    return from(this.eos.getTableRows({
+      json: true,
+      code: "gocio",
+      scope: "gocio",
+      table: "proposals",
+      limit: 1,
+      reverse:true,
+      table_key: ""
+    })).pipe(
+      map((result: any) => {
+        return result.rows
+          .map(row => ({ ...row, id: parseFloat(row.id) }))
+          .sort((a, b) => b.id - a.id);
+      })
+    );
+  }
+
+  
+
+  newgetProposals(proposalNumber?: number, limit = 20): Observable<any[]> {
+    let proposalNumber$: Observable<number>;
+    if (proposalNumber) {
+      proposalNumber$ = of(proposalNumber);
+      console.log('ssdSSDfs',proposalNumber);
+    } else {
+      proposalNumber$ = this.info$.pipe(
+        take(1),
+        map(info => info[0].id)
+      );
+    }
+    return proposalNumber$.pipe(
+      switchMap(proposalNumber => {
+        let proposalNumbers: number[] = [];
+        console.log('aa',proposalNumber);
+        for (let i = proposalNumber; i > proposalNumber - limit && i > 0; i--) {
+          proposalNumbers.push(i);
+        }
+        const proposalNumbers$: Observable<any>[] = proposalNumbers.map(proposalNumber => {
+          return this.getProposal(proposalNumber).pipe(
+            catchError(() => of(null))
+          );
+        });
+        return forkJoin(proposalNumbers$).pipe(
+          map(proposals => proposals.filter(proposal => proposal !== null))
+        );
+      })
+    );
+  }
+
+
+  newgetProposal(id: number, limit = 1) {  //TODO: add api in eosjs
+    var lower = id-limit+1;
+    var uppper = id;
+    return from(this.eos.getTableRows({
+      json: true,
+      code: "gocio",
+      scope: "gocio",
+      table: "proposals",
+      lower_bound:lower,
+      upper_bound:uppper,
+      reverse:true,
+      limit: 700,
+      table_key: ""
+    }))/*.pipe(
+      map((result: any) => {
+        return result.rows
+          .map(row => ({ ...row, id: parseFloat(row.id) }))
+          //.filter(row => row.id == id);  //TODO ===
+      })
+    )*/;
+  }
+
+  getProposal(id: number) {  //TODO: add api in eosjs
     var lower = id;
     var uppper = lower;
     return from(this.eos.getTableRows({
@@ -177,16 +257,16 @@ export class EosService {
       upper_bound:uppper,
       limit: 700,
       table_key: ""
-    })).pipe(
+    }))/*.pipe(
       map((result: any) => {
         return result.rows
           .map(row => ({ ...row, id: parseFloat(row.id) }))
           //.filter(row => row.id == id);  //TODO ===
       })
-    );
+    )*/;
   }
 
-  getProposalRaw(id: string | number): Observable<Result<any>> {
+  getProposalRaw(id: number): Observable<Result<any>> {
     const getProposal$ = defer(() => from(this.getProposal(id)));
     return this.getResult<any>(getProposal$);
   }

@@ -109,6 +109,7 @@ export class AppService {
     return blockNumber$.pipe(
       switchMap(blockNumber => {
         let blockNumbers: number[] = [];
+        console.log('ssdfddfdSSDfs',blockNumber);
         for (let i = blockNumber; i > blockNumber - limit && i > 0; i--) {
           blockNumbers.push(i);
         }
