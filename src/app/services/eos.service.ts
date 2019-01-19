@@ -15,16 +15,10 @@ export class EosService {
   public apiEndpoint$ = this.apiEndpointSource.asObservable();
   public eos: any;
 
-  info$: Observable<any>;
-
   constructor(
     private http: HttpClient,
     private logger: LoggerService
   ) {
-    this.info$ = timer(0, 5000).pipe(
-      switchMap(() => this.onegetProposals()),
-      share()
-    );
     const proposalNumber: number = 0
     this.apiEndpoint$.subscribe(apiEndpoint => {
       this.eos = Eos({
@@ -155,7 +149,7 @@ export class EosService {
     );
   }
 
-  getProposals() {
+  getProposalsBak() {
     return from(this.eos.getTableRows({
       json: true,
       code: "gocio",
@@ -172,60 +166,14 @@ export class EosService {
     );
   }
 
-  onegetProposals() {
-    return from(this.eos.getTableRows({
-      json: true,
-      code: "gocio",
-      scope: "gocio",
-      table: "proposals",
-      limit: 1,
-      reverse:true,
-      table_key: ""
-    })).pipe(
-      map((result: any) => {
-        return result.rows
-          .map(row => ({ ...row, id: parseFloat(row.id) }))
-          .sort((a, b) => b.id - a.id);
-      })
-    );
-  }
-
-  
-
-  newgetProposals(proposalNumber?: number, limit = 20): Observable<any[]> {
-    let proposalNumber$: Observable<number>;
-    if (proposalNumber) {
-      proposalNumber$ = of(proposalNumber);
-      console.log('ssdSSDfs',proposalNumber);
+  getProposals(id: number, limit = 1) {  //TODO: add api in eosjs
+    if(id === -1) {
+      var lower = 0;
+      var uppper = 100000;
     } else {
-      proposalNumber$ = this.info$.pipe(
-        take(1),
-        map(info => info[0].id)
-      );
+      var lower = (id-limit+1 >= 0) ? id-limit+1 : 0;
+      var uppper = id >= 0 ? id : 0;
     }
-    return proposalNumber$.pipe(
-      switchMap(proposalNumber => {
-        let proposalNumbers: number[] = [];
-        console.log('aa',proposalNumber);
-        for (let i = proposalNumber; i > proposalNumber - limit && i > 0; i--) {
-          proposalNumbers.push(i);
-        }
-        const proposalNumbers$: Observable<any>[] = proposalNumbers.map(proposalNumber => {
-          return this.getProposal(proposalNumber).pipe(
-            catchError(() => of(null))
-          );
-        });
-        return forkJoin(proposalNumbers$).pipe(
-          map(proposals => proposals.filter(proposal => proposal !== null))
-        );
-      })
-    );
-  }
-
-
-  newgetProposal(id: number, limit = 1) {  //TODO: add api in eosjs
-    var lower = id-limit+1;
-    var uppper = id;
     return from(this.eos.getTableRows({
       json: true,
       code: "gocio",
@@ -234,15 +182,15 @@ export class EosService {
       lower_bound:lower,
       upper_bound:uppper,
       reverse:true,
-      limit: 700,
+      limit: limit,
       table_key: ""
-    }))/*.pipe(
+    })).pipe(
       map((result: any) => {
         return result.rows
           .map(row => ({ ...row, id: parseFloat(row.id) }))
-          //.filter(row => row.id == id);  //TODO ===
+          .sort((a, b) => b.id - a.id);
       })
-    )*/;
+    );
   }
 
   getProposal(id: number) {  //TODO: add api in eosjs
