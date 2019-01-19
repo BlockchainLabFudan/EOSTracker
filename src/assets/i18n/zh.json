@@ -48,5 +48,7 @@
   "Id": "Id",
   "Scope": "范围",
   "Settings": "设置",
-  "Language": "语言"
+  "Language": "语言",
+  "Proposals": "提案",
+  "Proposal": "提案"
 }
