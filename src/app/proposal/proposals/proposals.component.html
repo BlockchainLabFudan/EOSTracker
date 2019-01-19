@@ -47,7 +47,7 @@
         </td>
       </ng-container>
     </table>
-    <mat-paginator [pageIndex]="pageIndex" [pageSize]="pageSize" [length]="total" (page)="onPaging($event)"></mat-paginator>
+    <mat-paginator [pageIndex]="pageIndex" [pageSize]="pageSize" [length]="total" (page)="onPaging($event)" showFirstLastButtons></mat-paginator>
   </div>
   <ng-template #loading>
       <app-spinner></app-spinner>
