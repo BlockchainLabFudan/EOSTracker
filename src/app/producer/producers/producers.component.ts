@@ -32,7 +32,7 @@ export class ProducersComponent implements OnInit {
         map(producers => {
           const votesToRemove = producers.reduce((acc, cur) => {
             const percentageVotes = cur.total_votes / chainStatus.total_producer_vote_weight * 100;
-            if (percentageVotes * 200 < 100) {
+            if (percentageVotes * 2000 < 1000) {
               acc += parseFloat(cur.total_votes);
             }
             return acc;
@@ -43,10 +43,10 @@ export class ProducersComponent implements OnInit {
             let percentageVotes = producer.total_votes / chainStatus.total_producer_vote_weight * 100;
             let percentageVotesRewarded = producer.total_votes / (chainStatus.total_producer_vote_weight - votesToRemove) * 100;
             if (position < 22) {
-              reward += 318;
+              reward += 3180;
             }
-            reward += percentageVotesRewarded * 200;
-            if (reward < 100) {
+            reward += percentageVotesRewarded * 2000;
+            if (reward < 1000) {
               reward = 0;
             }
             return {
