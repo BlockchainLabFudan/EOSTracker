@@ -17,7 +17,7 @@ export class SupportComponent implements OnInit {
   public alive = false;
   public showConfetti = true;
 
-  readonly contract = "trackeraegis";
+  readonly contract = "gocio";
 
   constructor(private eosService: EosService,
               private scatterService: ScatterService) {

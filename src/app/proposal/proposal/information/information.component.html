@@ -58,6 +58,27 @@
         <td>{{ 'BP Voter' | translate }}:</td>
         <td>{{proposal.total_bp}}</td>
       </tr>
+      <tr *ngIf="proposal">
+        <td>{{ 'Voter' | translate }}:</td>
+        <td>
+          <ng-container *ngIf="!isLogged()">
+            <mat-card-subtitle>
+              Please login before vote proposals
+            </mat-card-subtitle>
+            <mat-card-actions>
+              <button (click)="login()" mat-raised-button color="primary" style="width: 100%" type="submit">Login</button>
+            </mat-card-actions>
+          </ng-container>
+          <mat-card-content *ngIf="isLogged()">
+            <div style="margin-top: 20px; ">
+              <form class="ng-untouched ng-pristine ng-invalid">
+                <button (click)="vote(proposal.id, 0)" mat-raised-button style="width: 50%" type="submit" [disabled]="!isLogged() || alive">反对</button>
+                <button (click)="vote(proposal.id, 1)" mat-raised-button style="width: 50%" type="submit" [disabled]="!isLogged() || alive">赞成</button>
+              </form>
+            </div>
+          </mat-card-content>
+        </td>
+      </tr>
     </table>
   </mat-card-content>
 </mat-card>
