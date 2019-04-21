@@ -8,5 +8,17 @@
       <span>{{ appName | translate }}</span>
     </a>
   </div>
+  <div>
+    <ng-container *ngIf="!isLogged()">
+        <mat-card-actions>
+          <button (click)="login()" mat-raised-button color="primary" style="width: 10%" type="submit">Login</button>
+        </mat-card-actions>
+    </ng-container>
+    <ng-container *ngIf="isLogged()">
+        <mat-card-actions>
+          <button (click)="logout()" mat-raised-button color="primary" style="width: 10%" type="submit">Logout</button>
+        </mat-card-actions>
+    </ng-container>
+  </div>
   <app-search (onSearchExpanded)="searchExpanded = $event" [ngClass]="searchExpanded ? 'search-expanded' : 'search-collapsed'"></app-search>
 </header>

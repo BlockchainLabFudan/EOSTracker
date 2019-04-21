@@ -59,15 +59,10 @@
         <td>{{proposal.total_bp}}</td>
       </tr>
       <tr *ngIf="proposal">
-        <td>{{ 'Voter' | translate }}:</td>
+        <td>{{ 'Vote' | translate }}:</td>
         <td>
           <ng-container *ngIf="!isLogged()">
-            <mat-card-subtitle>
               Please login before vote proposals
-            </mat-card-subtitle>
-            <mat-card-actions>
-              <button (click)="login()" mat-raised-button color="primary" style="width: 100%" type="submit">Login</button>
-            </mat-card-actions>
           </ng-container>
           <mat-card-content *ngIf="isLogged()">
             <div style="margin-top: 20px; ">

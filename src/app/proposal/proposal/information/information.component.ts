@@ -1,8 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {EosService} from '../../../services/eos.service';
 import { ScatterService } from '../../../services/scatter.service';
-import {timer} from 'rxjs/index';
-import {takeWhile} from 'rxjs/operators';
 
 @Component({
   selector: 'app-proposal-information',
@@ -16,7 +13,6 @@ export class InformationComponent implements OnInit {
   public alive = false;
 
   constructor(
-    private eosService: EosService,
     private scatterService: ScatterService,
   ) { }
 
