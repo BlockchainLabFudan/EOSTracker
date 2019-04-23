@@ -38,6 +38,7 @@ export class ProposalsComponent implements OnInit {
           let tproposal_name = proposal.proposal_name;
           let tproposal_content = proposal.proposal_content;
           let tfee = proposal.fee;
+          let tstage = this.getProposalStage(proposal);
 
           return {
             ...proposal,
@@ -47,7 +48,8 @@ export class ProposalsComponent implements OnInit {
             url: turl,
             proposal_name: tproposal_name,
             proposal_content: tproposal_content,
-            fee: tfee
+            fee: tfee,
+            stage: tstage
           }
         });
       })
@@ -66,6 +68,7 @@ export class ProposalsComponent implements OnInit {
           let tproposal_name = proposal.proposal_name;
           let tproposal_content = proposal.proposal_content;
           let tfee = proposal.fee;
+          let tstage = this.getProposalStage(proposal);
 
           return {
             ...proposal,
@@ -75,11 +78,40 @@ export class ProposalsComponent implements OnInit {
             url: turl,
             proposal_name: tproposal_name,
             proposal_content: tproposal_content,
-            fee: tfee
+            fee: tfee,
+            stage: tstage
           }
         });
       })
     );
+  }
+
+/*
+  stage        
+  0           error
+  1           updating
+  2           GN vote
+  3           BP vote
+  4           end
+*/
+  getProposalStage(proposal) {
+    let stage = 'red';
+    let dnow = Date.now();
+    let bp_vote_endtime = new Date(proposal.bp_vote_endtime).getTime();
+    let bp_vote_starttime = new Date(proposal.bp_vote_starttime).getTime();
+    let vote_starttime = new Date(proposal.vote_starttime).getTime();
+    let create_time = new Date(proposal.create_time).getTime();
+    if(dnow > bp_vote_endtime) {
+      stage = '#8f4747';
+    } else if(dnow > bp_vote_starttime) {
+      stage = '#73c091';
+    } else if(dnow > vote_starttime) {
+      stage = '#87e27b';
+    } else if(dnow > create_time) {
+      stage = 'gray';
+    }
+    console.log(stage)
+    return stage;
   }
 
 }

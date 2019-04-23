@@ -8,7 +8,7 @@
     <table mat-table [dataSource]="proposals">
       <ng-container *ngIf="columnHeaders$ | async as columnHeaders">
         <tr mat-header-row *matHeaderRowDef="columnHeaders"></tr>
-        <tr mat-row *matRowDef="let row; columns: columnHeaders;"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnHeaders;" [style.backgroundColor]="row.stage"></tr>
       </ng-container>
       <ng-container matColumnDef="id">
         <th width="3%" mat-header-cell *matHeaderCellDef>{{'ID' | translate}}</th>

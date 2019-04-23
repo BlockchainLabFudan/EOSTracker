@@ -1,4 +1,23 @@
 .mat-row:nth-child(-n) {
     background-color: #e8f5e9;   
 }
+.mat-row:gn-vote() {
+    background-color: #e23427;   
+}
+
+mat-row[dev="10"] {
+    background-color: #d41313;
+}
+mat-row[dev="10"] .mat-cell, mat-row[dev="10"] a {
+    color: rgb(250, 14, 14);
+}
+
+mat-row[dev="Annie"] {
+    background-color: #34dddd;
+}
+mat-row[dev="Annie"] .mat-cell, mat-row[dev="Annie"] a {
+    color: #000;
+}
+
+
 table{table-layout:fixed;word-break:break-all;}
