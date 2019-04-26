@@ -31,6 +31,10 @@
         <td>{{ 'Last Irreversible Block #' | translate }}:</td>
         <td><a [routerLink]="['/blocks',status.last_irreversible_block_num]">{{status.last_irreversible_block_num}}</a></td>
       </tr>
+      <tr *ngIf="(account$ | async) as account">
+        <td>{{ 'GN Quantity' | translate }}:</td>
+        <td>{{account.quantity}}</td>
+      </tr>
     </table>
   </mat-card-content>
 </mat-card>
