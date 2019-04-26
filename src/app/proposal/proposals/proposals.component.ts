@@ -37,8 +37,8 @@ export class ProposalsComponent implements OnInit {
           let turl = proposal.url;
           let tproposal_name = proposal.proposal_name;
           let tproposal_content = proposal.proposal_content;
-          let tfee = proposal.fee;
-          let tstage = this.getProposalStage(proposal);
+          let tstatus = this.zh_status[this.getProposalStage(proposal)];
+          let tcolor = this.color[this.getProposalStage(proposal)];
 
           return {
             ...proposal,
@@ -48,14 +48,30 @@ export class ProposalsComponent implements OnInit {
             url: turl,
             proposal_name: tproposal_name,
             proposal_content: tproposal_content,
-            fee: tfee,
-            stage: tstage
+            status: tstatus,
+            color: tcolor
           }
         });
       })
     );
   }
 
+  zh_status: any[] = [
+    '错误',
+    '公示中',
+    'gn投票中',
+    'bp投票中',
+    '已结束未结算',
+    '已结算'
+  ];
+  color: any[] = [
+    '#ff0000',
+    '#0000ff',
+    '#00aa00',
+    '#aaaa00',
+    '#af4747',
+    '#ff4747'
+  ];
   onPaging(pageEvent) {
     this.pageIndex = pageEvent.pageIndex;
     this.proposals$ = this.eosService.getProposals(pageEvent.length - pageEvent.pageSize * pageEvent.pageIndex, pageEvent.pageSize).pipe(
@@ -67,8 +83,8 @@ export class ProposalsComponent implements OnInit {
           let turl = proposal.url;
           let tproposal_name = proposal.proposal_name;
           let tproposal_content = proposal.proposal_content;
-          let tfee = proposal.fee;
-          let tstage = this.getProposalStage(proposal);
+          let tstatus = this.zh_status[this.getProposalStage(proposal)];
+          let tcolor = this.color[this.getProposalStage(proposal)];
 
           return {
             ...proposal,
@@ -78,8 +94,8 @@ export class ProposalsComponent implements OnInit {
             url: turl,
             proposal_name: tproposal_name,
             proposal_content: tproposal_content,
-            fee: tfee,
-            stage: tstage
+            status: tstatus,
+            color: tcolor
           }
         });
       })
@@ -88,27 +104,32 @@ export class ProposalsComponent implements OnInit {
 
 /*
   stage        
-  0           error
-  1           updating
-  2           GN vote
-  3           BP vote
-  4           end
+  0           error     错误
+  1           updating  公示中
+  2           GN vote   gn投票中
+  3           BP vote   bp投票中
+  4           end       已结束未结算
+  5                     已结算
 */
   getProposalStage(proposal) {
-    let stage = 'red';
+    let stage = 0;   // 0
     let dnow = Date.now();
     let bp_vote_endtime = new Date(proposal.bp_vote_endtime).getTime();
     let bp_vote_starttime = new Date(proposal.bp_vote_starttime).getTime();
     let vote_starttime = new Date(proposal.vote_starttime).getTime();
     let create_time = new Date(proposal.create_time).getTime();
+    let reward = proposal.reward;
     if(dnow > bp_vote_endtime) {
-      stage = '#8f4747';
+      if(reward === '0.0000 GOC')
+        stage = 4;   // 4
+      else
+        stage = 5    // 5
     } else if(dnow > bp_vote_starttime) {
-      stage = '#73c091';
+      stage = 3;   // 3
     } else if(dnow > vote_starttime) {
-      stage = '#87e27b';
+      stage = 2;   // 2
     } else if(dnow > create_time) {
-      stage = 'gray';
+      stage = 1;   // 1
     }
     console.log(stage)
     return stage;
@@ -122,5 +143,5 @@ export const PROPOSALS_COLUMNS = [
   'url',
   'proposal_name',
   'proposal_content',
-  'fee'
+  'status'
 ];
