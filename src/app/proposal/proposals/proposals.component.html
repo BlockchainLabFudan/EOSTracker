@@ -40,10 +40,10 @@
           {{proposal.proposal_content}}
         </td>
       </ng-container>
-      <ng-container matColumnDef="fee">
-        <th width="10%" mat-header-cell *matHeaderCellDef>{{ 'Fee' | translate }}</th>
-        <td mat-cell *matCellDef="let proposal" style="white-space:pre-wrap;">
-          {{proposal.fee}}
+      <ng-container matColumnDef="status">
+        <th width="10%" mat-header-cell *matHeaderCellDef>{{ 'Status' | translate }}</th>
+        <td mat-cell *matCellDef="let proposal" [style.color]="proposal.color" style="white-space:pre-wrap;">
+          {{proposal.status}}
         </td>
       </ng-container>
     </table>
