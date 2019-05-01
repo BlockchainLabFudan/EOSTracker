@@ -131,7 +131,6 @@ export class ProposalsComponent implements OnInit {
     } else if(dnow > create_time) {
       stage = 1;   // 1
     }
-    console.log(stage)
     return stage;
   }
 

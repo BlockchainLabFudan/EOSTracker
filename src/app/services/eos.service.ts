@@ -214,6 +214,26 @@ export class EosService {
     )*/;
   }
 
+  getVotes(id: number, owner: string) {
+    return from(this.eos.getTableRows({
+      json: true,
+      code: "gocio",
+      scope: id,
+      table: "votes",
+      lower_bound:owner,
+      upper_bound:owner,
+      limit: 100,
+      table_key: ""
+    }))/*.pipe(
+      map((result: any) => result.rows[0])
+    )*/;
+  }
+
+  getVotesRaw(id: number, owner='aaaaaaaaaaaa'): Observable<Result<any>> {
+    const getVotes$ = defer(() => from(this.getVotes(id, owner)));
+    return this.getResult<any>(getVotes$);
+  }
+
   getProposalRaw(id: number): Observable<Result<any>> {
     const getProposal$ = defer(() => from(this.getProposal(id)));
     return this.getResult<any>(getProposal$);

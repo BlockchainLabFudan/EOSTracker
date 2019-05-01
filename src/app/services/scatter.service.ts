@@ -65,7 +65,7 @@ export class ScatterService {
   }
 
   takeAction(code: string, action: string, params) {
-    this.login().then(() => {
+    return this.login().then(() => {
       const account = this.scatter.identity.accounts.find(acc => acc.blockchain === 'goc');
       const transactionOptions = { authorization:[`${account.name}@${account.authority}`] };
 

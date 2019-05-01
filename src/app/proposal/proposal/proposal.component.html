@@ -3,15 +3,17 @@
     {{ 'Proposal' | translate }} #{{id$ | async}}
   </h1>
 </mat-toolbar>
-<div *ngIf="proposal$ | async as proposal; else loading">
-  <app-proposal-information [proposal]="proposal.value['rows'][0]" style="margin:10px;"></app-proposal-information>
-  <app-proposal-nodes [location]="proposal.location" style="margin:10px;"></app-proposal-nodes>
-  <mat-card style="margin:10px;">
-    <mat-card-title>Proposal Raw Data</mat-card-title>
-    <mat-card-content>
-      <prettyjson [obj]="proposal.value"></prettyjson>
-    </mat-card-content>
-  </mat-card>
+<div *ngIf="(proposal$ | async) as proposal; else loading ">
+  <div *ngIf="(votes$ | async) as votes; else loading ">
+    <app-proposal-information [votes]="votes.value['rows']" [proposal]="proposal.value['rows'][0]" style="margin:10px;"></app-proposal-information>
+    <app-proposal-nodes [location]="proposal.location" style="margin:10px;"></app-proposal-nodes>
+    <mat-card style="margin:10px;">
+      <mat-card-title>Proposal Raw Data</mat-card-title>
+      <mat-card-content>
+        <prettyjson [obj]="proposal.value"></prettyjson>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
 <ng-template #loading>
   <app-spinner></app-spinner>
