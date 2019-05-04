@@ -132,6 +132,21 @@ export class EosService {
     return this.getResult<any>(getTransaction$);
   }
 
+  getRamMarket() {
+    return from(this.eos.getTableRows({
+      json: true,
+      code: "gocio",
+      scope: "gocio",
+      table: "rammarket",
+      limit: 700,
+      table_key: ""
+    })).pipe(
+      map((result: any) => {
+        return result.rows;
+      })
+    );
+  }
+
   getProducers() {
     return from(this.eos.getTableRows({
       json: true,

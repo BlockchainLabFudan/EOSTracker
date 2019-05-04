@@ -16,6 +16,7 @@ export class ChainStatusComponent implements OnInit {
 
   status$;
   account$;
+  rammarket$;
   name$: Observable<string>;
 
   constructor(
@@ -34,6 +35,17 @@ export class ChainStatusComponent implements OnInit {
           quantity:parseInt(arr[0])/100000
         };
       })
+    );
+    this.rammarket$ = this.eosService.getRamMarket().pipe(
+      map(rammarket => {
+          let baseBalance = rammarket[0].base.balance;
+          let quoteBalance = rammarket[0].quote.balance;
+          let base = parseFloat(baseBalance.split(' ')[0]);
+          let quote = parseFloat(quoteBalance.split(' ')[0]);
+          return {
+            ramprice: (quote * 1024 / base).toFixed(4),
+          }
+        })
     );
     
   }
