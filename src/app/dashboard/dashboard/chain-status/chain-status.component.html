@@ -35,6 +35,10 @@
         <td>{{ 'GN Quantity' | translate }}:</td>
         <td>{{account.quantity}}</td>
       </tr>
+      <tr *ngIf="(rammarket$ | async) as rammarket">
+        <td>{{ 'RAM Price' | translate }}:</td>
+        <td>{{rammarket.ramprice}} GOC/KB</td>
+      </tr>
     </table>
   </mat-card-content>
 </mat-card>
