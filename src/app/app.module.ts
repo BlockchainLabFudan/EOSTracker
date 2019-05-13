@@ -15,6 +15,10 @@ import { ScatterService } from './services/scatter.service';
 import { AppService } from './services/app.service';
 import { LoggerService } from './services/logger.service';
 
+import { NgChartjsModule } from 'ng-chartjs';
+
+import { ChartsModule } from 'ng2-charts';
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -26,6 +30,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
+    ChartsModule,
+    NgChartjsModule,
     Ng2Webstorage,
     HttpClientModule,
     TranslateModule.forRoot({

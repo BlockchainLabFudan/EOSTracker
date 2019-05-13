@@ -12,10 +12,15 @@ import { ChainStatusComponent } from './dashboard/chain-status/chain-status.comp
 import { PriceComponent } from './dashboard/price/price.component';
 import { TrendingComponent } from './dashboard/trending/trending.component';
 
+import { ChartsModule } from 'ng2-charts';
+import { NgChartjsModule } from 'ng-chartjs';
+
 @NgModule({
   imports: [
     SharedModule,
     MatFormFieldModule,
+    ChartsModule,
+    NgChartjsModule,
     MatSelectModule
   ],
   declarations: [
