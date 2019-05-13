@@ -1,7 +1,7 @@
 <mat-card *ngIf="price">
   <mat-card-title fxLayout="row" fxLayoutAlign="start center">
     <!-- <mat-icon>attach_money</mat-icon> -->
-    RAM Price
+    {{ 'RAM Price' | translate }}
   </mat-card-title>
   <mat-card-content>
     <div style="text-align: center">
@@ -27,6 +27,13 @@
               </mat-tab>
           </mat-tab-group>
       </div> -->
+    </div>
+    <div style="margin-top: 20px; ">
+      <form class="ng-untouched ng-pristine ng-invalid">
+        <button (click)="getDate(144)"  mat-raised-button style="width: 25%" type="submit" [disabled]="false" [color]="getColor(1)">24小时</button>
+        <button (click)="getDate(1008)" mat-raised-button style="width: 25%" type="submit" [disabled]="true" [color]="getColor(2)">7天</button>
+        <button (click)="getDate(4320)" mat-raised-button style="width: 25%" type="submit" [disabled]="true" [color]="getColor(3)">30天</button>
+      </form>
     </div>
   </mat-card-content>
 </mat-card>
