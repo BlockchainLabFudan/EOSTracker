@@ -5,15 +5,14 @@
   </mat-card-title>
   <mat-card-content>
     <div style="text-align: center">
-      <div style="width: 600px; margin-top:20px">
-          <div style="position: relative; width: 600px;">
+      <div style="width: 100%; margin-top:20px">
+          <div style="position: relative; width: 100%;">
               <canvas baseChart 
                   [datasets]="lineChartData" 
                   [labels]="lineChartLabels"
                   [options]="lineChartOptions" 
                   [legend]="lineChartLegend"
-                  [chartType]="lineChartType" 
-                  (chartClick)="chartClicked($event)">
+                  [chartType]="lineChartType">
               </canvas>
           </div>
       </div>
@@ -30,9 +29,9 @@
     </div>
     <div style="margin-top: 20px; ">
       <form class="ng-untouched ng-pristine ng-invalid">
-        <button (click)="getDate(144)"  mat-raised-button style="width: 25%" type="submit" [disabled]="false" [color]="getColor(1)">24小时</button>
-        <button (click)="getDate(1008)" mat-raised-button style="width: 25%" type="submit" [disabled]="true" [color]="getColor(2)">7天</button>
-        <button (click)="getDate(4320)" mat-raised-button style="width: 25%" type="submit" [disabled]="true" [color]="getColor(3)">30天</button>
+        <button (click)="getDate(144)"  mat-raised-button style="width: 25%" type="submit" [disabled]="false" [color]="getColor(1)">{{ '24 hours' | translate }}</button>
+        <button (click)="getDate(1008)" mat-raised-button style="width: 25%" type="submit" [disabled]="true" [color]="getColor(2)">{{ '7 days' | translate }}</button>
+        <button (click)="getDate(4320)" mat-raised-button style="width: 25%" type="submit" [disabled]="true" [color]="getColor(3)">{{ '30 days' | translate }}</button>
       </form>
     </div>
   </mat-card-content>
