@@ -29,7 +29,7 @@ export class ScatterService {
     this.load();
     const requirements = {accounts: [this.network]};
     if (!this.scatter) {
-      alert("You need to install Scatter to use the form.");
+      alert("You need to install ScatterGoC to use the form.");
       return;
     }
     return this.scatter.getIdentity(requirements);
