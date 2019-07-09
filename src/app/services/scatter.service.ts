@@ -11,7 +11,7 @@ export class ScatterService {
   network: any;
 
   load() {
-    this.scatter = (<any>window).scatter;
+    this.scatter = (<any>window).scattergoc;
 
     this.network = {
       blockchain: 'goc',
